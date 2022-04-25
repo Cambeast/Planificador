@@ -227,7 +227,36 @@ public class PlanificadorCPU {
     
     private static void srtf(ArrayList<Proceso> procesos) {
         int tiempo = 0;
+        int temp;
         int cpu[] = new int[procesos.size()];
+        
+        Collections.sort(procesos);
+        
+        for (int i = 1; i < procesos.size(); i++)
+        {  
+           for (int j = i+1; j < procesos.size(); j++)
+           {  
+               if(procesos.get(i).getT_llegada()<= tiempo && procesos.get(j).getT_llegada()<= tiempo)
+               {
+                    if (procesos.get(i).getT_cpu()> procesos.get(j).getT_cpu())
+                    {
+                            temp = procesos.get(i).getT_llegada();
+                            procesos.get(i).setT_llegada(procesos.get(j).getT_llegada());
+                            procesos.get(j).setT_llegada(temp);
+
+                            temp = procesos.get(i).getT_cpu();
+                            procesos.get(i).setT_cpu(procesos.get(j).getT_cpu());
+                            procesos.get(j).setT_cpu(temp);
+
+                            temp = procesos.get(i).getNu();
+                            procesos.get(i).setNu(procesos.get(j).getNu());
+                            procesos.get(j).setNu(temp);
+                    }
+               }
+           }  tiempo+=procesos.get(i).getT_cpu();
+        }
+        
+        tiempo = 0;
         
         for (int i = 0; i < procesos.size(); i++) {
             tiempo += procesos.get(i).getT_cpu();
@@ -293,13 +322,46 @@ public class PlanificadorCPU {
               }  
         }
         
-        System.out.println("\t\tsrtf");
+        System.out.println("\t\tSRTF");
         mostrartabla(procesos);
     }
     
     private static void prioridadExp(ArrayList<Proceso> procesos) {
         int tiempo = 0;
         int cpu[] = new int[procesos.size()];
+        int temp;
+        
+        Collections.sort(procesos);
+        
+        for (int i = 1; i < procesos.size(); i++)
+        {  
+           for (int j = i+1; j < procesos.size(); j++)
+           {  
+               if(procesos.get(i).getT_llegada()<= tiempo && procesos.get(j).getT_llegada()<= tiempo)
+               {
+                    if (procesos.get(i).getPrioridad()> procesos.get(j).getPrioridad())
+                    {
+                            temp = procesos.get(i).getT_llegada();
+                            procesos.get(i).setT_llegada(procesos.get(j).getT_llegada());
+                            procesos.get(j).setT_llegada(temp);
+
+                            temp = procesos.get(i).getT_cpu();
+                            procesos.get(i).setT_cpu(procesos.get(j).getT_cpu());
+                            procesos.get(j).setT_cpu(temp);
+
+                            temp = procesos.get(i).getNu();
+                            procesos.get(i).setNu(procesos.get(j).getNu());
+                            procesos.get(j).setNu(temp);
+                            
+                            temp = procesos.get(i).getPrioridad();
+                            procesos.get(i).setPrioridad(procesos.get(j).getPrioridad());
+                            procesos.get(j).setPrioridad(temp);
+                    }
+               }
+           }  tiempo+=procesos.get(i).getT_cpu();
+        } 
+        
+        tiempo = 0;
 
         for (int i = 0; i < procesos.size(); i++) {
             tiempo += procesos.get(i).getT_cpu();
