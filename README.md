@@ -3,6 +3,6 @@ App de escritorio desarrollada en java que permite simular los diferentes algori
 
 # Participantes
 * Ivonne Andrea Nuñez
-* Jean carlos Quintana
+* Jean Carlos Quintana
 * Camilo José Mendoza
 * Sebastian Camilo Villegas
